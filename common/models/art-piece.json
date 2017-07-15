@@ -1,0 +1,38 @@
+{
+  "name": "ArtPiece",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "author": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "technique": {
+      "type": "string"
+    },
+    "materials": {
+      "type": "string"
+    },
+    "measurements": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
