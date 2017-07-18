@@ -5,7 +5,8 @@
     "ACL": 1,
     "RoleMapping": 1,
     "Role": 1,
-    "ArtPiece": 2
+    "ArtPiece": 2,
+    "Artist": 2
   },
   "models": {
     "User": {},
@@ -14,9 +15,11 @@
     "Credential": {},
     "RoleMapping": {},
     "Role": {},
-    "Artist": {},
+    "Artist": {
+      "1": "{\"photo\":\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png\",\"phone\":\"5534989460\",\"id\":1}"
+    },
     "ArtPiece": {
-      "1": "{\"title\":\"My greatest piece\",\"materials\":\"Tons\",\"measurements\":\"120x120\",\"year\":2017,\"description\":\"You are going to be amazed!\",\"source\":\"https://static.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg\",\"autor\":\"Zam\",\"tecnique\":\"Something great\",\"id\":1}"
+      "1": "{\"title\":\"My greatest piece\",\"materials\":\"Tons\",\"measurements\":\"120x120\",\"year\":2017,\"description\":\"You are going to be amazed!\",\"source\":\"https://static.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg\",\"autor\":\"Zam\",\"tecnique\":\"Something great\",\"id\":1,\"artistId\":1}"
     }
   }
 }

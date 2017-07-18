@@ -29,6 +29,9 @@
     },
     "source": {
       "type": "string"
+    },
+    "artistId": {
+      "type": "number"
     }
   },
   "validations": [],
