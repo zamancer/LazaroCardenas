@@ -42,5 +42,9 @@
   "Credential": {
     "dataSource": "db",
     "public": true
+  },
+  "Artist": {
+    "dataSource": "db",
+    "public": true
   }
 }

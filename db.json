@@ -14,6 +14,7 @@
     "Credential": {},
     "RoleMapping": {},
     "Role": {},
+    "Artist": {},
     "ArtPiece": {
       "1": "{\"title\":\"My greatest piece\",\"materials\":\"Tons\",\"measurements\":\"120x120\",\"year\":2017,\"description\":\"You are going to be amazed!\",\"source\":\"https://static.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg\",\"autor\":\"Zam\",\"tecnique\":\"Something great\",\"id\":1}"
     }
