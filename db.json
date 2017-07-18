@@ -14,7 +14,7 @@
     "AccessToken": {},
     "ACL": {},
     "Credential": {
-      "1": "{\"name\":\"Ale\",\"lastName\":\"Ale\",\"day\":\"04\",\"month\":\"01\",\"year\":\"1989\",\"address1\":\"Address pt1\",\"address2\":\"Address pt2\",\"city\":\"Mexico\",\"state\":\"Mexico\",\"country\":\"Mexico\",\"userType\":\"0\",\"active\":true,\"ownerId\":1,\"password\":\"$2a$10$msQBeoyeijr7nDNJeBq2F.Gpy5BslTgHpXJcpKShuuoP6MGoxAC36\",\"email\":\"admin@mail.com\",\"id\":1}"
+      "1": "{\"name\":\"Ale\",\"lastName\":\"Ale\",\"day\":\"04\",\"month\":\"01\",\"year\":\"1989\",\"address1\":\"Address pt1\",\"address2\":\"Address pt2\",\"city\":\"Mexico\",\"state\":\"Mexico\",\"country\":\"Mexico\",\"userType\":\"0\",\"active\":true, \"ownerType\": \"Artist\",\"ownerId\":1,\"password\":\"$2a$10$msQBeoyeijr7nDNJeBq2F.Gpy5BslTgHpXJcpKShuuoP6MGoxAC36\",\"email\":\"admin@mail.com\",\"id\":1}"
     },
     "RoleMapping": {},
     "Role": {},
