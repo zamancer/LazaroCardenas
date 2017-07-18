@@ -5,6 +5,6 @@ const chai = require('chai');
 const expect = chai.expect;
 
 module.exports = {
-    app,
-    expect
-}
+  app,
+  expect
+};

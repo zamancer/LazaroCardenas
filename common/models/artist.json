@@ -27,5 +27,24 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "prototype.getArtistDetail": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "details",
+          "type": "object",
+          "root": true,
+          "description": "The artist detail with filters"
+        }
+      ],
+      "description": "Retrieves the artist info with filters",
+      "http": [
+        {
+          "path": "/getArtistDetail",
+          "verb": "get"
+        }
+      ]
+    }
+  }
 }
