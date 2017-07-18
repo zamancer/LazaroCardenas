@@ -42,5 +42,24 @@
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": {}
+  "methods": {
+    "prototype.getArtPieceDetail": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "details",
+          "type": "object",
+          "root": true,
+          "description": "The art piece details"
+        }
+      ],
+      "description": "Retrieves the ArtPiece detail",
+      "http": [
+        {
+          "path": "/getArtPieceDetail",
+          "verb": "get"
+        }
+      ]
+    }
+  }
 }
