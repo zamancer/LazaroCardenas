@@ -11,6 +11,11 @@
     },
     "phone": {
       "type": "string"
+    },
+    "categories": {
+      "type": [
+        "object"
+      ]
     }
   },
   "validations": [],

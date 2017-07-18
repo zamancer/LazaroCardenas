@@ -32,6 +32,11 @@
     },
     "artistId": {
       "type": "number"
+    },
+    "categories": {
+      "type": [
+        "object"
+      ]
     }
   },
   "validations": [],
