@@ -38,5 +38,9 @@
   "ArtPiece": {
     "dataSource": "db",
     "public": true
+  },
+  "Credential": {
+    "dataSource": "db",
+    "public": true
   }
 }

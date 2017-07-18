@@ -11,6 +11,7 @@
     "User": {},
     "AccessToken": {},
     "ACL": {},
+    "Credential": {},
     "RoleMapping": {},
     "Role": {},
     "ArtPiece": {
