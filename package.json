@@ -5,12 +5,25 @@
   "engines": {
     "node": ">=4"
   },
+  "now": {
+    "name": "lazarocardenas",
+    "alias": [
+      "lazarocardenas"
+    ],
+    "env": {
+      "MONGODB_URL": "@mongodb-url",
+      "NODE_ENV": "production"
+    }
+  },
   "scripts": {
     "dev": "nodemon server/server.js --watch common --watch server",
     "lint": "eslint .",
     "start": "node .",
     "test": "cross-env NODE_ENV=test mocha test/**/*.test.js",
-    "watch": "npm run test -- --watch"
+    "watch": "npm run test -- --watch",
+    "now:deploy": "now",
+    "now:alias": "now alias",
+    "now": "npm run now:deploy && npm run now:alias"
   },
   "dependencies": {
     "compression": "^1.0.3",
