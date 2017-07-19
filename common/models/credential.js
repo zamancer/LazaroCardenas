@@ -1,10 +1,11 @@
 module.exports = function(Credential) {
   const selectUserBuilder = function(userAccount) {
     switch (userAccount.userType) {
-    //   case '1':
-    //     return {
-    //       owner: {ownerType: 'CulturalHelper'},
-    //     };
+      case '1':
+        return {
+          owner: {ownerType: 'CulturalHelper'},
+          model: Credential.app.models.CulturalHelper,
+        };
       case '2':
         return {
           owner: {ownerType: 'Artist'},

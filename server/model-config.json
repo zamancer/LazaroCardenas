@@ -46,5 +46,9 @@
   "Artist": {
     "dataSource": "db",
     "public": true
+  },
+  "CulturalHelper": {
+    "dataSource": "db",
+    "public": true
   }
 }
