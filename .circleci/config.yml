@@ -32,9 +32,23 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+
       # run tests!
       - run: yarn test
+
+      - run: bash .circleci/setup-heroku.sh
+        - add_ssh_keys:
+            fingerprints:
+              - "44:f3:3a:ea:b9:3f:8b:91:00:18:e0:ba:5a:da:97:0b"
+
+      - deploy:
+        name: Deploy Master to Heroku
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            git push heroku master
+            heroku run python manage.py deploy
+            heroku restart
+          fi
 
 #Not really working
 deployment:
@@ -43,15 +57,4 @@ deployment:
     heroku:
       appname: lazarocardenas
 
- - run: bash .circleci/setup-heroku.sh
-        - add_ssh_keys:
-            fingerprints:
-              - "44:f3:3a:ea:b9:3f:8b:91:00:18:e0:ba:5a:da:97:0b"
-  - deploy:
-      name: Deploy Master to Heroku
-      command: |
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          git push heroku master
-          heroku run python manage.py deploy
-          heroku restart
-        fi
+ 
