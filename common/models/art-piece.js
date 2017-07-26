@@ -46,4 +46,18 @@ module.exports = function(ArtPiece) {
     var details = {detail: detail, categories: currentArtPiece.categories};
     callback(null, details);
   };
+
+/**
+ * Retrieves a list of ArtPieces related to a user
+ * @param {object} credential The user credential
+ * @param {object} filters Filter for the results
+ * @param {Function(Error, array)} callback
+ */
+  ArtPiece.mosaic = function(credential, filters, callback) {
+    // var artPieces = [];
+    // const ArtistModel = ArtPiece.app.models.Artist;
+    return Promise.resolve()
+      .then(() => ArtPiece.find({where: {artistId: credential.ownerId}}))
+      .then(results => { callback(null, results); });
+  };
 };

@@ -1,6 +1,8 @@
 const {app, expect} = require('../common');
 
 const ArtPiece = app.models.ArtPiece;
+const Artist = app.models.Artist;
+const Credential = app.models.Credential;
 
 describe('ArtPiece model', function() {
   it('should resolve find', function() {
@@ -110,5 +112,54 @@ describe('ArtPiece model', function() {
         },
       });
     });
+  });
+
+  it('should retrieve mosaic results', function() {
+    let testArtist = {
+      phone: '55555',
+      photo: 'https://url2.com',
+      categories: [{label: 'MyTag', value: '#BestArtist2017'}],
+    };
+
+    let artistCredentials = {
+      name: 'Nombre',
+      lastName: 'Apellido',
+      email: 'mail123@mail.com',
+      password: 'p4ssw0rd',
+    };
+
+    let artPieceRelated = {
+      author: 'Ultra',
+      title: 'The Greatest Painting',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120',
+      year: 2015,
+      description: 'Behold!',
+      source: 'https://secreturl.com/image.png',
+      categories: [],
+    };
+
+    return Promise.resolve()
+      .then(() => Artist.create(testArtist))
+      .then(createdArtist => {
+        artPieceRelated.artistId = createdArtist.id;
+        return ArtPiece.create(artPieceRelated);
+      })
+      .then(createdArtPiece => {
+        let mergedCredentials = Object.assign({},
+                                    artistCredentials,
+                                    {ownerId: createdArtPiece.artistId, ownerType: 'Artist'});
+
+        return Credential.create(mergedCredentials);
+      })
+      .then(createdCredentials => {
+        return ArtPiece
+          .mosaic(createdCredentials, {}, function(err, res) {
+            console.log(res);
+            expect(res).to.be.an('array');
+            expect(res).to.have.lengthOf(1);
+          });
+      });
   });
 });

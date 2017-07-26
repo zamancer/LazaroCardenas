@@ -60,6 +60,37 @@
           "verb": "get"
         }
       ]
+    },
+    "mosaic": {
+      "accepts": [
+        {
+          "arg": "credential",
+          "type": "object",
+          "required": true,
+          "description": "The user credential"
+        },
+        {
+          "arg": "filters",
+          "type": "object",
+          "required": false,
+          "description": "Filter for the results"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "artPieces",
+          "type": "array",
+          "root": true,
+          "description": "The ArtPieces related to the user and filter (if any)"
+        }
+      ],
+      "description": "Retrieves a list of ArtPieces related to a user",
+      "http": [
+        {
+          "path": "/mosaic",
+          "verb": "get"
+        }
+      ]
     }
   }
 }
