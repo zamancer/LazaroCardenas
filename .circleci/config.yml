@@ -36,8 +36,22 @@ jobs:
       # run tests!
       - run: yarn test
 
+#Not really working
 deployment:
   production:
     branch: master
     heroku:
       appname: lazarocardenas
+
+ - run: bash .circleci/setup-heroku.sh
+        - add_ssh_keys:
+            fingerprints:
+              - "44:f3:3a:ea:b9:3f:8b:91:00:18:e0:ba:5a:da:97:0b"
+  - deploy:
+      name: Deploy Master to Heroku
+      command: |
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          git push heroku master
+          heroku run python manage.py deploy
+          heroku restart
+        fi
