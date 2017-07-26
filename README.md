@@ -21,3 +21,6 @@ Use `now secret add mongodb-url=(YOUR_ACTUAL_MONGO_DB_CONNECTION)`.
 2. Download the heroku app (URL).
 3. Use `git push origin heroku` to deploy.
 4. Browse using `heroku open`.
+
+# Continouse Integration
+Currently, this project is using CircleCI 2.0 as a CI server.
