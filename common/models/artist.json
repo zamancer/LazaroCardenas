@@ -9,6 +9,9 @@
     "email": {
       "type": "string"
     },
+    "lastName": {
+      "type": "string"
+    },
     "photo": {
       "type": "string"
     },
