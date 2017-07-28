@@ -1,23 +1,7 @@
+const ArtistFilters = require('../constants/artistsFilters');
+
 // eslint-disable-next-line
 module.exports = function (Artist) {
-  const ArtistFilters = {
-    photo: {
-      filter: 'default',
-    },
-    email: {
-      filter: 'not_empty',
-    },
-    name: {
-      filter: 'not_empty',
-    },
-    lastName: {
-      filter: 'default',
-    },
-    phone: {
-      filter: 'default',
-    },
-  };
-
   /**
      * Retrieves the artist info with filters
      * @param {Function(Error, object)} callback
