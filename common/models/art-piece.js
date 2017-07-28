@@ -1,4 +1,5 @@
 const transformToImages = require('./cloudinaryImageTransform');
+const _ = require('lodash/collection');
 
 function getCustomFilter(filters) {
   if (filters) {
@@ -65,10 +66,26 @@ module.exports = function (ArtPiece) {
 // eslint-disable-next-line
   ArtPiece.mosaic = function (credential, filters, callback) {
     const customFilter = getCustomFilter(filters);
-    const whereFilter = Object.assign({}, { artistId: credential.ownerId }, customFilter);
-    return Promise.resolve()
-      .then(() => ArtPiece.find({ where: whereFilter }))
-      .then((results) => { callback(null, results); });
+
+    if (credential.ownerType === 'Artist') {
+      return Promise.resolve()
+        .then(() => Object.assign({}, { artistId: credential.ownerId }, customFilter))
+        .then(whereFilter => ArtPiece.find({ where: whereFilter }))
+        .then((results) => { callback(null, results); });
+    }
+
+    if (credential.ownerType === 'CulturalHelper') {
+      const Artist = ArtPiece.app.models.Artist;
+
+      return Promise.resolve()
+        .then(() => Artist.find({ where: { culturalHelperId: credential.ownerId } }))
+        .then((artists) => {
+          const flatArtistsIds = _.flatMap(artists, a => [a.id]);
+          return Object.assign({}, { artistId: { inq: flatArtistsIds } }, customFilter);
+        })
+        .then(whereFilter => ArtPiece.find({ where: whereFilter }))
+        .then((results) => { callback(null, results); });
+    }
   };
 
   ArtPiece.observe('persist', (ctx, next) => {
