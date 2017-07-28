@@ -11,7 +11,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "artists": {
+      "type": "hasMany",
+      "model": "Artist",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
