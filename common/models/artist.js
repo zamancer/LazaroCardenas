@@ -62,7 +62,7 @@ module.exports = function (Artist) {
 
   Artist.validatesUniquenessOf('email', { message: 'El correo ingresado ya existe' });
 
-  const validateNotOverlappedWithCredential = (err) => {
+  const validatesUniquenessAgainsCredential = (err, done) => {
     const Credential = Artist.app.models.Credential;
 
     return Promise.resolve()
@@ -71,21 +71,9 @@ module.exports = function (Artist) {
             if (credential) {
               err();
             }
+            done();
           }).catch(() => err());
   };
-
-  function validatesUniquenessAgainsCredential(err, done) {
-    const Credential = Artist.app.models.Credential;
-    Credential.findOne({ where: { email: this.email } })
-      .then((credential) => {
-        if (credential) {
-          err();
-        }
-
-        done();
-      })
-      .catch(() => err());
-  }
 
   Artist.validateAsync('email', validatesUniquenessAgainsCredential, {
     message: 'Ya existe un usuario con este correo'
