@@ -1,23 +1,7 @@
+const ArtistFilters = require('../constants/artistsFilters');
+
 // eslint-disable-next-line
 module.exports = function (Artist) {
-  const ArtistFilters = {
-    photo: {
-      filter: 'default',
-    },
-    email: {
-      filter: 'not_empty',
-    },
-    name: {
-      filter: 'not_empty',
-    },
-    lastName: {
-      filter: 'default',
-    },
-    phone: {
-      filter: 'default',
-    },
-  };
-
   /**
      * Retrieves the artist info with filters
      * @param {Function(Error, object)} callback
@@ -59,4 +43,23 @@ module.exports = function (Artist) {
     });
     // .then(details => callback(null, details));
   };
+
+  Artist.validatesUniquenessOf('email', { message: 'El correo ingresado ya existe' });
+
+  const validatesUniquenessAgainsCredential = (err, done) => {
+    const Credential = Artist.app.models.Credential;
+
+    return Promise.resolve()
+          .then(() => { Credential.findOne({ where: { email: this.email } }); })
+          .then((credential) => {
+            if (credential) {
+              err();
+            }
+            done();
+          }).catch(() => err());
+  };
+
+  Artist.validateAsync('email', validatesUniquenessAgainsCredential, {
+    message: 'Ya existe un usuario con este correo'
+  });
 };
