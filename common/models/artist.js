@@ -1,4 +1,5 @@
-module.exports = function(Artist) {
+// eslint-disable-next-line
+module.exports = function (Artist) {
   const ArtistFilters = {
     photo: {
       filter: 'default',
@@ -21,9 +22,10 @@ module.exports = function(Artist) {
      * Retrieves the artist info with filters
      * @param {Function(Error, object)} callback
      */
-  Artist.prototype.getArtistDetail = function(callback) {
-    let currentArtist = this;
-    let Credential = Artist.app.models.Credential;
+  // eslint-disable-next-line
+  Artist.prototype.getArtistDetail = function (callback) {
+    const currentArtist = this;
+    const Credential = Artist.app.models.Credential;
 
     return Promise.resolve()
       .then(() => Credential.findOne({
@@ -32,27 +34,25 @@ module.exports = function(Artist) {
           ownerId: currentArtist.id,
         },
       }))
-    .then(artistCredential => {
-      let mergedArtist = Object.assign({},
-        {photo: currentArtist.photo,
+    .then((artistCredential) => {
+      const mergedArtist = Object.assign({},
+        { photo: currentArtist.photo,
           phone: currentArtist.phone,
         },
-        {name: artistCredential.name,
+        { name: artistCredential.name,
           lastName: artistCredential.lastName,
           email: artistCredential.email,
         });
-      let detail = Object.keys(ArtistFilters)
-        .map(p => {
-          let mergedFilters = {};
+      const detail = Object.keys(ArtistFilters)
+        .map((p) => {
+          const mergedFilters = {};
           mergedFilters[p] = ArtistFilters[p];
           mergedFilters[p].value = mergedArtist[p];
           return mergedFilters;
         })
-        .reduce(function(acc, current) {
-          return Object.assign({}, acc, current);
-        }, {});
-      let details = {
-        detail: detail,
+        .reduce((acc, current) => Object.assign({}, acc, current), {});
+      const details = {
+        detail,
         categories: currentArtist.categories,
       };
       return details;

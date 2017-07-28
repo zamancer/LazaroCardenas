@@ -1,4 +1,14 @@
-module.exports = function(ArtPiece) {
+const transformToImages = require('./cloudinaryImageTransform');
+
+function getCustomFilter(filters) {
+  if (filters) {
+    return filters;
+  }
+  return {};
+}
+
+// eslint-disable-next-line
+module.exports = function (ArtPiece) {
   const ArtPieceFilters = {
     author: {
       filter: 'not_empty',
@@ -29,21 +39,20 @@ module.exports = function(ArtPiece) {
    * Retrieves the ArtPiece detail
    * @param {Function(Error, object)} callback
    */
-  ArtPiece.prototype.getArtPieceDetail = function(callback) {
-    let currentArtPiece = this;
+  // eslint-disable-next-line
+  ArtPiece.prototype.getArtPieceDetail = function (callback) {
+    const currentArtPiece = this;
 
-    let detail = Object.keys(ArtPieceFilters)
-        .map(p => {
-          let mergedFilters = {};
+    const detail = Object.keys(ArtPieceFilters)
+        .map((p) => {
+          const mergedFilters = {};
           mergedFilters[p] = ArtPieceFilters[p];
           mergedFilters[p].value = currentArtPiece[p];
           return mergedFilters;
         })
-        .reduce(function(acc, current) {
-          return Object.assign({}, acc, current);
-        }, {});
+        .reduce((acc, current) => Object.assign({}, acc, current), {});
 
-    var details = {detail: detail, categories: currentArtPiece.categories};
+    const details = { detail, categories: currentArtPiece.categories };
     callback(null, details);
   };
 
@@ -53,11 +62,19 @@ module.exports = function(ArtPiece) {
  * @param {object} filters Filter for the results
  * @param {Function(Error, array)} callback
  */
-  ArtPiece.mosaic = function(credential, filters, callback) {
-    // var artPieces = [];
-    // const ArtistModel = ArtPiece.app.models.Artist;
+// eslint-disable-next-line
+  ArtPiece.mosaic = function (credential, filters, callback) {
+    const customFilter = getCustomFilter(filters);
+    const whereFilter = Object.assign({}, { artistId: credential.ownerId }, customFilter);
     return Promise.resolve()
-      .then(() => ArtPiece.find({where: {artistId: credential.ownerId}}))
-      .then(results => { callback(null, results); });
+      .then(() => ArtPiece.find({ where: whereFilter }))
+      .then((results) => { callback(null, results); });
   };
+
+  ArtPiece.observe('persist', (ctx, next) => {
+    if (ctx.currentInstance && ctx.currentInstance.source) {
+      ctx.currentInstance.images = transformToImages(ctx.currentInstance.source);
+    }
+    return next();
+  });
 };

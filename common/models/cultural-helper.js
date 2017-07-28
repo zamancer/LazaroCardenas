@@ -1,5 +1,4 @@
-'use strict';
-
-module.exports = function(Culturalhelper) {
+// eslint-disable-next-line
+module.exports = function (Culturalhelper) {
 
 };

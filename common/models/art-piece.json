@@ -28,10 +28,14 @@
       "type": "string"
     },
     "source": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "artistId": {
       "type": "number"
+    },
+    "images": {
+      "type": "object"
     },
     "categories": {
       "type": [

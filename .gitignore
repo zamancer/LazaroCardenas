@@ -16,5 +16,6 @@
 .strong-pm
 coverage
 node_modules
+.nyc_output/
 npm-debug.log
 db.json
