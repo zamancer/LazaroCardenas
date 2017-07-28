@@ -72,7 +72,7 @@ module.exports = function (ArtPiece) {
   };
 
   ArtPiece.observe('persist', (ctx, next) => {
-    if (ctx.currentInstance && ctx.currentInstance.source) {
+    if (ctx.currentInstance && ctx.isNewInstance) {
       ctx.currentInstance.images = transformToImages(ctx.currentInstance.source);
     }
     return next();
