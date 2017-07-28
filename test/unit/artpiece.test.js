@@ -145,6 +145,7 @@ describe('ArtPiece model', () => {
 
   it('should retrieve mosaic results', () => {
     const testArtist = {
+      email: 'testMosaicResults1@gmail.com',
       phone: '55555',
       photo: 'https://url2.com',
       categories: [{ label: 'MyTag', value: '#BestArtist2017' }],
@@ -191,6 +192,7 @@ describe('ArtPiece model', () => {
 
   it('should retrieve mosaic results with filters', () => {
     const testArtist = {
+      email: 'testMosaicResults2@gmail.com',
       phone: '7777777',
       photo: 'https://url2.com',
       categories: [{ label: 'MyTag', value: '#BestArtist2017' }],

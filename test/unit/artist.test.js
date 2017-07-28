@@ -125,4 +125,49 @@ describe('Artist model', () => {
           });
       }));
   });
+
+  it('should valide email uniqueness', () => {
+    const testArtist1 = {
+      email: 'testArtist1@mymail.com',
+      name: 'Test Artist 1',
+      phone: '5534989460',
+      photo: 'https://url.com'
+    };
+
+    const testArtist2 = {
+      email: 'testArtist1@mymail.com',
+      name: 'Test Artist 2',
+      phone: '5534984565',
+      photo: 'https://url.com'
+    };
+
+    return Artist.create(testArtist1)
+            .then(() => Artist.create(testArtist2))
+            .catch((err) => {
+              expect(err.statusCode).to.be.equal(422);
+              expect(err.message).to.contain('El correo ingresado ya existe');
+            });
+  });
+
+  it('should valide email uniqueness against Credentials', () => {
+    const testCredential = {
+      email: 'testArtistUniqueness3@mail.com',
+      password: '123456',
+      name: 'Chuchito'
+    };
+
+    const testArtistWithRepatedEmail = {
+      email: 'testArtistUniqueness3@mail.com',
+      name: 'Test Artist 1',
+      phone: '5534989460',
+      photo: 'https://url.com'
+    };
+
+    return Credential.create(testCredential)
+            .then(() => Artist.create(testArtistWithRepatedEmail))
+            .catch((err) => {
+              expect(err.statusCode).to.be.equal(422);
+              expect(err.message).to.contain('Ya existe un usuario con este correo');
+            });
+  });
 });
