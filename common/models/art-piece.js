@@ -1,41 +1,9 @@
 const transformToImages = require('./cloudinaryImageTransform');
-const _ = require('lodash/collection');
-
-function getCustomFilter(filters) {
-  if (filters) {
-    return filters;
-  }
-  return {};
-}
+const lodashCollection = require('lodash/collection');
+const ArtPieceFilters = require('../constants/artpieceFilters');
 
 // eslint-disable-next-line
 module.exports = function (ArtPiece) {
-  const ArtPieceFilters = {
-    author: {
-      filter: 'not_empty',
-    },
-    title: {
-      filter: 'not_empty',
-    },
-    technique: {
-      filter: 'default',
-    },
-    materials: {
-      filter: 'default',
-    },
-    measurements: {
-      filter: 'default',
-    },
-    year: {
-      filter: 'default',
-    },
-    source: {
-      filter: 'not_empty',
-    },
-    description: {
-      filter: 'default',
-    },
-  };
   /**
    * Retrieves the ArtPiece detail
    * @param {Function(Error, object)} callback
@@ -57,6 +25,17 @@ module.exports = function (ArtPiece) {
     callback(null, details);
   };
 
+  function buildMosaicFilterForCulturalHelper(culturalHelperId) {
+    const Artist = ArtPiece.app.models.Artist;
+
+    return Promise.resolve()
+        .then(() => Artist.find({ where: { culturalHelperId } }))
+        .then((artists) => {
+          const flatArtistsIds = lodashCollection.flatMap(artists, a => [a.id]);
+          return { artistId: { inq: flatArtistsIds } };
+        });
+  }
+
 /**
  * Retrieves a list of ArtPieces related to a user
  * @param {object} credential The user credential
@@ -65,29 +44,24 @@ module.exports = function (ArtPiece) {
  */
 // eslint-disable-next-line
   ArtPiece.mosaic = function (credential, filters, callback) {
-    const customFilter = getCustomFilter(filters);
+    return Promise.resolve()
+        .then(() => {
+          if (credential.ownerType === 'CulturalHelper') {
+            return buildMosaicFilterForCulturalHelper(credential.ownerId);
+          }
 
-    if (credential.ownerType === 'Artist') {
-      return Promise.resolve()
-        .then(() => Object.assign({}, { artistId: credential.ownerId }, customFilter))
-        .then(whereFilter => ArtPiece.find({ where: whereFilter }))
-        .then((results) => { callback(null, results); });
-    }
-
-    if (credential.ownerType === 'CulturalHelper') {
-      const Artist = ArtPiece.app.models.Artist;
-
-      return Promise.resolve()
-        .then(() => Artist.find({ where: { culturalHelperId: credential.ownerId } }))
-        .then((artists) => {
-          const flatArtistsIds = _.flatMap(artists, a => [a.id]);
-          return Object.assign({}, { artistId: { inq: flatArtistsIds } }, customFilter);
+          return { artistId: credential.ownerId };
         })
+        .then(credentialFilter => Object.assign({}, credentialFilter, filters))
         .then(whereFilter => ArtPiece.find({ where: whereFilter }))
         .then((results) => { callback(null, results); });
-    }
   };
 
+  /**
+   * Persist hook for transforming source property to images object.
+   * @param {object} ctx The current instance context.
+   * @param {Function} The next function in the persistance chain.
+   */
   ArtPiece.observe('persist', (ctx, next) => {
     if (ctx.currentInstance && ctx.isNewInstance) {
       ctx.currentInstance.images = transformToImages(ctx.currentInstance.source);
