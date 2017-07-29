@@ -20,6 +20,9 @@ const ArtPieceFilters = {
   source: {
     filter: 'not_empty',
   },
+  images: {
+    filter: 'not_empty',
+  },
   description: {
     filter: 'default',
   },

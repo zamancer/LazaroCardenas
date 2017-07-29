@@ -133,6 +133,10 @@ describe('ArtPiece model', () => {
           filter: 'not_empty',
           value: artPiece.source,
         },
+        images: {
+          filter: 'not_empty',
+          value: {}
+        },
         description: {
           filter: 'default',
           value: artPiece.description,
