@@ -51,6 +51,9 @@ describe('Artist model', () => {
 
   it('should retrieve Artist detail', () => {
     const artist = new Artist({
+      name: 'Nombre',
+      lastName: 'Apellido',
+      email: 'mail@mail.com',
       phone: '3333333333',
       photo: 'https://url2.com',
       categories: [
