@@ -14,13 +14,7 @@ module.exports = function (Credential) {
     const modelValuesUpdate = {
       name: userAccount.name,
       lastName: userAccount.lastName,
-      address1: userAccount.address1,
-      address2: userAccount.address2,
-      city: userAccount.city,
-      state: userAccount.state,
-      country: userAccount.country,
-      email: userAccount.email,
-      birthDate: userAccount.birthDate
+      email: userAccount.email
     };
 
     let persistedModel = {};

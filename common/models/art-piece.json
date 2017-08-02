@@ -27,8 +27,8 @@
       "default": ""
     },
     "year": {
-      "type": "number",
-      "default": 0
+      "type": "string",
+      "default": ""
     },
     "description": {
       "type": "string",

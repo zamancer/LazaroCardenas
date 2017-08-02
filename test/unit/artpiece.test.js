@@ -15,7 +15,7 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'https://secreturl.com/image.png'
     };
@@ -33,7 +33,7 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'http://res.cloudinary.com/zamancer/image/upload/v1501170397/IMG_8896_gvbpbe.jpg',
       images: {
@@ -88,7 +88,7 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'https://secreturl.com/image.png',
       categories: [
