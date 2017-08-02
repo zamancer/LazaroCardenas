@@ -1,3 +1,5 @@
+const path = require('path');
+
 // eslint-disable-next-line
 module.exports = function (Credential) {
   /**
@@ -62,4 +64,23 @@ module.exports = function (Credential) {
           callback(customError, null);
         });
   };
+
+  Credential.on('resetPasswordRequest', (info) => {
+    // const message = `We need to send a email reset for ${info.email} using the
+    // accessToken: ${info.accessToken.id}`;
+    const AppEmail = Credential.app.models.AppEmail;
+
+    const mailOptions = {
+      mailer: Credential.app.models.AppEmail,
+      type: 'email',
+      to: info.email,
+      from: 'alnzam17@gmail.com',
+      subject: 'Thanks for registering.',
+      template: path.resolve(__dirname, '../../server/views/verify.ejs'),
+      text: `Please reset id ${info.accessToken.id}`,
+      redirect: '/verified'
+    };
+
+    AppEmail.send(mailOptions);
+  });
 };
