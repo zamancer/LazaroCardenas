@@ -36,6 +36,10 @@ describe('ArtPiece model', () => {
       year: 2017,
       description: 'Behold!',
       source: 'http://res.cloudinary.com/zamancer/image/upload/v1501170397/IMG_8896_gvbpbe.jpg',
+      images: {
+        thumbnail: 'http://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1501170397/IMG_8896_gvbpbe.jpg',
+        standard: 'http://res.cloudinary.com/zamancer/image/upload/v1501170397/IMG_8896_gvbpbe.jpg'
+      },
       categories: [
         {
           label: 'Tag1',

@@ -35,8 +35,7 @@
       "default": ""
     },
     "source": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "artistId": {
       "type": "number"

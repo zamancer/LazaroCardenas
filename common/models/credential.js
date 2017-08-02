@@ -21,8 +21,24 @@ module.exports = function (Credential) {
       birthDate: userAccount.birthDate
     };
 
+    let persistedModel = {};
+
     return Promise.resolve()
         .then(() => Model.findOne({ where: { email: userAccount.email } }))
+        .then((previouslyCreatedModel) => {
+          persistedModel = previouslyCreatedModel;
+          if (userAccount.ownerType === 'CulturalHelper') {
+            const Artist = Credential.app.models.Artist;
+            return Artist.findOne({ where: { email: userAccount.email } });
+          }
+          return false;
+        })
+        .then((check) => {
+          if (check) {
+            throw new Error('El correo utilizado ya existe como un Artista.');
+          }
+          return persistedModel;
+        })
         .then((previouslyCreatedModel) => {
           if (previouslyCreatedModel) {
             return previouslyCreatedModel.updateAttributes(modelValuesUpdate);
@@ -36,6 +52,14 @@ module.exports = function (Credential) {
                                 { ownerId: ownerModel.id });
 
           return Credential.create(newCredential);
+        })
+        .then(cred => callback(null, cred))
+        .catch((err) => {
+          const customError = {
+            status: 422,
+            message: err.message
+          };
+          callback(customError, null);
         });
   };
 };

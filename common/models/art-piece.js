@@ -1,4 +1,3 @@
-const transformToImages = require('./cloudinaryImageTransform');
 const lodashCollection = require('lodash/collection');
 const ArtPieceFilters = require('../constants/artpieceFilters');
 
@@ -56,16 +55,4 @@ module.exports = function (ArtPiece) {
         .then(whereFilter => ArtPiece.find({ where: whereFilter }))
         .then((results) => { callback(null, results); });
   };
-
-  /**
-   * Persist hook for transforming source property to images object.
-   * @param {object} ctx The current instance context.
-   * @param {Function} The next function in the persistance chain.
-   */
-  ArtPiece.observe('persist', (ctx, next) => {
-    if (ctx.currentInstance && ctx.isNewInstance) {
-      ctx.currentInstance.images = transformToImages(ctx.currentInstance.source);
-    }
-    return next();
-  });
 };
