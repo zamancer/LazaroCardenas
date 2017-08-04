@@ -77,4 +77,24 @@ module.exports = function (Credential) {
 
     AppEmail.send(mailOptions);
   });
+
+  Credential.observe('after save', (ctx, next) => {
+    if (ctx.instance && !ctx.isNewInstance) {
+      return Credential.app.models.Artist.findOne({ where: { email: ctx.instance.email } })
+          .then((artist) => {
+            if (artist) {
+              if (!(artist.name === ctx.instance.name &&
+                    artist.lastName === ctx.instance.lastName)) {
+                artist.updateAttributes({
+                  name: ctx.instance.name,
+                  lastName: ctx.instance.lastName
+                });
+              }
+            }
+            return null;
+          });
+    }
+
+    return next();
+  });
 };

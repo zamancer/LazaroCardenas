@@ -42,4 +42,23 @@ module.exports = function (Artist) {
   Artist.validateAsync('email', validatesUniquenessAgainsCredential, {
     message: 'Ya existe un usuario con este correo'
   });
+
+  Artist.observe('after save', (ctx, next) => {
+    if (ctx.instance && !ctx.isNewInstance) {
+      return Artist.app.models.Credential.findOne({ where: { email: ctx.instance.email } })
+          .then((cred) => {
+            if (cred) {
+              if (!(cred.name === ctx.instance.name && cred.lastName === ctx.instance.lastName)) {
+                cred.updateAttributes({
+                  name: ctx.instance.name,
+                  lastName: ctx.instance.lastName
+                });
+              }
+            }
+            return null;
+          });
+    }
+
+    return next();
+  });
 };
