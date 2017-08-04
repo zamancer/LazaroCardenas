@@ -24,6 +24,27 @@ module.exports = function (Artist) {
     callback(null, details);
   };
 
+  /**
+   * Eliminates a set of Artists
+   * @param {object} ids The array of Artists ids to eliminate
+   * @param {Function(Error)} callback
+   */
+  // eslint-disable-next-line
+  Artist.eliminate = function(ids, callback) {
+    const ArtPiece = Artist.app.models.ArtPiece;
+    return Promise.resolve()
+        .then(() => Artist.find({ where: { id: { inq: ids } } }))
+        .then((artists) => {
+          if (artists.length > 0) {
+            const artistsIds = artists.map(a => a.id);
+            return ArtPiece.destroyAll({ artistId: { inq: artistsIds } });
+          }
+          return null;
+        })
+        .then(() => Artist.destroyAll({ id: { inq: ids } }))
+        .then(() => callback(null));
+  };
+
   Artist.validatesUniquenessOf('email', { message: 'El correo ingresado ya existe' });
 
   const validatesUniquenessAgainsCredential = (err, done) => {

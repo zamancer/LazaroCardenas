@@ -110,11 +110,11 @@
           "arg": "ids",
           "type": "array",
           "required": true,
-          "description": "The id arrays to eliminate"
+          "description": "The array of ArtPieces ids to eliminate"
         }
       ],
       "returns": [],
-      "description": "Eliminates desired ArtPiece instances",
+      "description": "Eliminates a set of ArtPieces",
       "http": [
         {
           "path": "/eliminate",

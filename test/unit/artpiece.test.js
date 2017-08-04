@@ -149,7 +149,7 @@ describe('ArtPiece model', () => {
     });
   });
 
-  it('should resolve delete multiple', () => {
+  it('should eliminate multiple', () => {
     const artPiece1 = {
       author: 'JF Kennedy Maestre',
       title: 'The Greating 1',

@@ -42,6 +42,24 @@
   },
   "acls": [],
   "methods": {
+    "eliminate": {
+      "accepts": [
+        {
+          "arg": "ids",
+          "type": "object",
+          "required": true,
+          "description": "The array of Artists ids to eliminate"
+        }
+      ],
+      "returns": [],
+      "description": "Eliminates a set of Artists",
+      "http": [
+        {
+          "path": "/eliminate",
+          "verb": "delete"
+        }
+      ]
+    },
     "prototype.getArtistDetail": {
       "accepts": [],
       "returns": [
