@@ -1,4 +1,3 @@
-const transformToImages = require('./cloudinaryImageTransform');
 const lodashCollection = require('lodash/collection');
 const ArtPieceFilters = require('../constants/artpieceFilters');
 
@@ -58,14 +57,14 @@ module.exports = function (ArtPiece) {
   };
 
   /**
-   * Persist hook for transforming source property to images object.
-   * @param {object} ctx The current instance context.
-   * @param {Function} The next function in the persistance chain.
+   * Eliminates desired ArtPiece instances
+   * @param {array} ids The id arrays to eliminate
+   * @param {Function(Error)} callback
    */
-  ArtPiece.observe('persist', (ctx, next) => {
-    if (ctx.currentInstance && ctx.isNewInstance) {
-      ctx.currentInstance.images = transformToImages(ctx.currentInstance.source);
-    }
-    return next();
-  });
+  // eslint-disable-next-line
+  ArtPiece.eliminate = function(ids, callback) {
+    return Promise.resolve()
+        .then(() => ArtPiece.destroyAll({ id: { inq: ids } }))
+        .then(() => callback(null));
+  };
 };

@@ -27,16 +27,15 @@
       "default": ""
     },
     "year": {
-      "type": "number",
-      "default": 0
+      "type": "string",
+      "default": ""
     },
     "description": {
       "type": "string",
       "default": ""
     },
     "source": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "artistId": {
       "type": "number"
@@ -102,6 +101,24 @@
         {
           "path": "/mosaic",
           "verb": "get"
+        }
+      ]
+    },
+    "eliminate": {
+      "accepts": [
+        {
+          "arg": "ids",
+          "type": "array",
+          "required": true,
+          "description": "The array of ArtPieces ids to eliminate"
+        }
+      ],
+      "returns": [],
+      "description": "Eliminates a set of ArtPieces",
+      "http": [
+        {
+          "path": "/eliminate",
+          "verb": "delete"
         }
       ]
     }

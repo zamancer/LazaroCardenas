@@ -15,7 +15,7 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'https://secreturl.com/image.png'
     };
@@ -33,9 +33,13 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'http://res.cloudinary.com/zamancer/image/upload/v1501170397/IMG_8896_gvbpbe.jpg',
+      images: {
+        thumbnail: 'http://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1501170397/IMG_8896_gvbpbe.jpg',
+        standard: 'http://res.cloudinary.com/zamancer/image/upload/v1501170397/IMG_8896_gvbpbe.jpg'
+      },
       categories: [
         {
           label: 'Tag1',
@@ -84,7 +88,7 @@ describe('ArtPiece model', () => {
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
-      year: 2017,
+      year: '2017',
       description: 'Behold!',
       source: 'https://secreturl.com/image.png',
       categories: [
@@ -143,5 +147,52 @@ describe('ArtPiece model', () => {
         },
       });
     });
+  });
+
+  it('should eliminate multiple', () => {
+    const artPiece1 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 1',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiece2 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 2',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiece3 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 3',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiecesToDelete = [];
+
+    return Promise.resolve()
+        .then(() => ArtPiece.create(artPiece1))
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.create(artPiece2);
+        })
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.create(artPiece3);
+        })
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.count({ id: { inq: artPiecesToDelete } });
+        })
+        .then(res => expect(res).to.equal(3))
+        .then(() => ArtPiece.eliminate(artPiecesToDelete, () => {}))
+        .then(() => ArtPiece.count({ id: { inq: artPiecesToDelete } }))
+        .then(res => expect(res).to.equal(0));
   });
 });

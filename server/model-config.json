@@ -50,5 +50,9 @@
   "CulturalHelper": {
     "dataSource": "db",
     "public": true
+  },
+  "AppEmail": {
+    "dataSource": "EmailDS",
+    "public": false
   }
 }

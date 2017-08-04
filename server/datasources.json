@@ -3,5 +3,21 @@
     "name": "db",
     "connector": "memory",
     "file": "db.json"
+  },
+  "EmailDS": {
+    "name": "EmailDS",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "SMTP",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "auth": {
+          "user": "mail@gmail.com",
+          "pass": "p4ss"
+        }
+      }
+    ]
   }
 }

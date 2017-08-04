@@ -2,6 +2,7 @@ const { app, expect } = require('../common');
 
 const Artist = app.models.Artist;
 const Credential = app.models.Credential;
+const ArtPiece = app.models.ArtPiece;
 
 describe('Artist model', () => {
   it('find should resolve', () => Artist
@@ -51,6 +52,9 @@ describe('Artist model', () => {
 
   it('should retrieve Artist detail', () => {
     const artist = new Artist({
+      name: 'Nombre',
+      lastName: 'Apellido',
+      email: 'mail@mail.com',
       phone: '3333333333',
       photo: 'https://url2.com',
       categories: [
@@ -169,5 +173,91 @@ describe('Artist model', () => {
               expect(err.statusCode).to.be.equal(422);
               expect(err.message).to.contain('Ya existe un usuario con este correo');
             });
+  });
+
+  it('should eliminate multiple', () => {
+    const testArtist = {
+      name: 'Alan',
+      lastName: 'Zami',
+      phone: '5534989460',
+      photo: 'https://url.com'
+    };
+
+    const testArtist2 = {
+      name: 'Nala',
+      lastName: 'TheZam',
+      phone: '5534989460',
+      photo: 'https://url.com'
+    };
+
+    const artistsToDelete = [];
+
+    return Artist.create(testArtist)
+            .then((createdArtist) => {
+              artistsToDelete.push(createdArtist.id);
+              return Artist.create(testArtist2);
+            })
+            .then((createdArtist) => {
+              artistsToDelete.push(createdArtist.id);
+              return Artist.count({ id: { inq: artistsToDelete } });
+            })
+            .then(res => expect(res).to.equal(2))
+            .then(() => Artist.eliminate(artistsToDelete, () => {}))
+            .then(() => Artist.count({ id: { inq: artistsToDelete } }))
+            .then(res => expect(res).to.equal(0));
+  });
+
+  it('should eliminate related ArtPieces', () => {
+    const testArtist = {
+      name: 'Whatever1',
+      lastName: 'WhateverlastName',
+      email: 'what1ev3r@mail.com'
+    };
+
+    const testArtPiece1 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 3',
+      technique: 'Hand'
+    };
+
+    const testArtPiece2 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 3',
+      technique: 'Hand'
+    };
+
+    const testArtPiece3 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 3',
+      technique: 'Hand'
+    };
+
+    let artistIdToDelete = 0;
+    const artPiecesToDelete = [];
+
+    return Artist.create(testArtist)
+            .then((createdArtist) => {
+              artistIdToDelete = createdArtist.id;
+              testArtPiece1.artistId = artistIdToDelete;
+              return ArtPiece.create(testArtPiece1);
+            })
+            .then((createdArtPiece) => {
+              artPiecesToDelete.push(createdArtPiece.id);
+              testArtPiece2.artistId = artistIdToDelete;
+              return ArtPiece.create(testArtPiece2);
+            })
+            .then((createdArtPiece) => {
+              artPiecesToDelete.push(createdArtPiece.id);
+              testArtPiece3.artistId = artistIdToDelete;
+              return ArtPiece.create(testArtPiece3);
+            })
+            .then((createdArtPiece) => {
+              artPiecesToDelete.push(createdArtPiece.id);
+              return ArtPiece.count({ id: { inq: artPiecesToDelete } });
+            })
+            .then(res => expect(res).to.equal(3))
+            .then(() => Artist.eliminate([artistIdToDelete], () => {}))
+            .then(() => ArtPiece.count({ id: { inq: artPiecesToDelete } }))
+            .then(res => expect(res).to.equal(0));
   });
 });
