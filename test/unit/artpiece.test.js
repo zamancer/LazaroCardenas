@@ -148,4 +148,51 @@ describe('ArtPiece model', () => {
       });
     });
   });
+
+  it('should resolve delete multiple', () => {
+    const artPiece1 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 1',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiece2 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 2',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiece3 = {
+      author: 'JF Kennedy Maestre',
+      title: 'The Greating 3',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120'
+    };
+
+    const artPiecesToDelete = [];
+
+    return Promise.resolve()
+        .then(() => ArtPiece.create(artPiece1))
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.create(artPiece2);
+        })
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.create(artPiece3);
+        })
+        .then((createdArtPiece) => {
+          artPiecesToDelete.push(createdArtPiece.id);
+          return ArtPiece.count({ id: { inq: artPiecesToDelete } });
+        })
+        .then(res => expect(res).to.equal(3))
+        .then(() => ArtPiece.eliminate(artPiecesToDelete, () => {}))
+        .then(() => ArtPiece.count({ id: { inq: artPiecesToDelete } }))
+        .then(res => expect(res).to.equal(0));
+  });
 });

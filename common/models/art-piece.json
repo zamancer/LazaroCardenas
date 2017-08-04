@@ -103,6 +103,24 @@
           "verb": "get"
         }
       ]
+    },
+    "eliminate": {
+      "accepts": [
+        {
+          "arg": "ids",
+          "type": "array",
+          "required": true,
+          "description": "The id arrays to eliminate"
+        }
+      ],
+      "returns": [],
+      "description": "Eliminates desired ArtPiece instances",
+      "http": [
+        {
+          "path": "/eliminate",
+          "verb": "delete"
+        }
+      ]
     }
   }
 }

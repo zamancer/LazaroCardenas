@@ -55,4 +55,16 @@ module.exports = function (ArtPiece) {
         .then(whereFilter => ArtPiece.find({ where: whereFilter }))
         .then((results) => { callback(null, results); });
   };
+
+  /**
+   * Eliminates desired ArtPiece instances
+   * @param {array} ids The id arrays to eliminate
+   * @param {Function(Error)} callback
+   */
+  // eslint-disable-next-line
+  ArtPiece.eliminate = function(ids, callback) {
+    return Promise.resolve()
+        .then(() => ArtPiece.destroyAll({ id: { inq: ids } }))
+        .then(() => callback(null));
+  };
 };
