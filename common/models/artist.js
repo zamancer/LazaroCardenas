@@ -9,19 +9,33 @@ module.exports = function (Artist) {
   // eslint-disable-next-line
   Artist.prototype.getArtistDetail = function (callback) {
     const currentArtist = this;
+    const CulturalHelper = Artist.app.models.Culturalhelper;
+    
 
-    const detail = Object.keys(ArtistFilters)
-      .map((p) => {
-        const mergedFilters = {};
-        mergedFilters[p] = ArtistFilters[p];
-        mergedFilters[p].value = currentArtist[p] || "";
-        return mergedFilters;
-      })
-      .reduce((acc, current) => Object.assign({}, acc, current), {});
+    return Promise.resolve()
+          .then((details) => {
+            if(currentArtist.culturalHelperId) {
+              return CulturalHelper.findOne({ where: { id: currentArtist.culturalHelperId } })
+            }
+          })
+          .then((culturalHelper) => {
+            const detail = Object.keys(ArtistFilters)
+              .map((p) => {
+                const mergedFilters = {};
+                mergedFilters[p] = ArtistFilters[p];
+                mergedFilters[p].value = currentArtist[p] || "";
+                return mergedFilters;
+              })
+              .reduce((acc, current) => Object.assign({}, acc, current), {});
 
-    const details = { id: currentArtist.id, detail, categories: currentArtist.categories };
+            const details = { id: currentArtist.id, detail, categories: currentArtist.categories };
 
-    callback(null, details);
+            if(culturalHelper) {
+              details.detail.culturalHelperName = culturalHelper.name;
+            }
+            return details;
+          })
+          .then(details => callback(null, details));
   };
 
   /**
