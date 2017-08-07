@@ -9,21 +9,22 @@ module.exports = function (Artist) {
   // eslint-disable-next-line
   Artist.prototype.getArtistDetail = function (callback) {
     const currentArtist = this;
-    const CulturalHelper = Artist.app.models.Culturalhelper;
+    const CulturalHelper = Artist.app.models.CulturalHelper;
     
-
     return Promise.resolve()
           .then((details) => {
             if(currentArtist.culturalHelperId) {
               return CulturalHelper.findOne({ where: { id: currentArtist.culturalHelperId } })
             }
+
+            return null;
           })
           .then((culturalHelper) => {
             const detail = Object.keys(ArtistFilters)
               .map((p) => {
                 const mergedFilters = {};
                 mergedFilters[p] = ArtistFilters[p];
-                mergedFilters[p].value = currentArtist[p] || "";
+                mergedFilters[p].value = currentArtist[p] || '';
                 return mergedFilters;
               })
               .reduce((acc, current) => Object.assign({}, acc, current), {});

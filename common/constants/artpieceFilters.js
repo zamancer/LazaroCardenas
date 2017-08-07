@@ -26,6 +26,9 @@ const ArtPieceFilters = {
   description: {
     filter: 'default',
   },
+  artistId: {
+    filter: 'not_empty'
+  }
 };
 
 module.exports = ArtPieceFilters;

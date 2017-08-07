@@ -148,6 +148,10 @@ describe('ArtPiece model', () => {
           filter: 'default',
           value: artPiece.description,
         },
+        artistId: {
+          filter: 'not_empty',
+          value: ''
+        }        
       });
     });
   });

@@ -22,7 +22,6 @@
     "test": "cross-env NODE_ENV=test mocha test/**/*.test.js",
     "watch": "npm run test -- --watch",
     "precommit": "yarn test",
-    "prepush": "yarn lint",
     "now:deploy": "now",
     "now:alias": "now alias",
     "now": "npm run now:deploy && npm run now:alias",

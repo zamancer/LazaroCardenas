@@ -15,7 +15,7 @@ module.exports = function (ArtPiece) {
         .map((p) => {
           const mergedFilters = {};
           mergedFilters[p] = ArtPieceFilters[p];
-          mergedFilters[p].value = currentArtPiece[p];
+          mergedFilters[p].value = currentArtPiece[p] || '';
           return mergedFilters;
         })
         .reduce((acc, current) => Object.assign({}, acc, current), {});
