@@ -14,6 +14,9 @@ const ArtistFilters = {
   phone: {
     filter: 'default',
   },
+  culturalHelperId: {
+    filter: 'not_empty'
+  }
 };
 
 module.exports = ArtistFilters;

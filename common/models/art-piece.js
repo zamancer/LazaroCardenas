@@ -20,7 +20,7 @@ module.exports = function (ArtPiece) {
         })
         .reduce((acc, current) => Object.assign({}, acc, current), {});
 
-    const details = { detail, categories: currentArtPiece.categories };
+    const details = { id: currentArtPiece.id, detail, categories: currentArtPiece.categories };
     callback(null, details);
   };
 

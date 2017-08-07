@@ -14,12 +14,12 @@ module.exports = function (Artist) {
       .map((p) => {
         const mergedFilters = {};
         mergedFilters[p] = ArtistFilters[p];
-        mergedFilters[p].value = currentArtist[p];
+        mergedFilters[p].value = currentArtist[p] || "";
         return mergedFilters;
       })
       .reduce((acc, current) => Object.assign({}, acc, current), {});
 
-    const details = { detail, categories: currentArtist.categories };
+    const details = { id: currentArtist.id, detail, categories: currentArtist.categories };
 
     callback(null, details);
   };

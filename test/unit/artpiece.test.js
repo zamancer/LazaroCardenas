@@ -83,6 +83,7 @@ describe('ArtPiece model', () => {
 
   it('should retrieve an ArtPiece detail', () => {
     const artPiece = new ArtPiece({
+      id: 1,
       author: 'JF Kennedy Maestre',
       title: 'The Greatest Painting',
       technique: 'Hand',
@@ -107,6 +108,8 @@ describe('ArtPiece model', () => {
       expect(details).to.be.an('object');
       expect(details).to.have.property('detail');
       expect(details).to.have.property('categories');
+      expect(details).to.have.property('id');
+      expect(details.id).to.be.above(0);
       expect(details.categories).to.have.lengthOf(2);
       expect(details.detail).to.deep.equal({
         author: {

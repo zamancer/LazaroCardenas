@@ -98,6 +98,13 @@ describe('Artist model', () => {
           .to
           .have
           .property('categories');
+        expect(details)
+          .to
+          .have
+          .property('id');
+        expect(details.id)
+          .to
+          .be.above(0);
         expect(details.categories)
           .to
           .have
@@ -126,6 +133,10 @@ describe('Artist model', () => {
               filter: 'default',
               value: '3333333333',
             },
+            culturalHelperId: {
+              filter: 'not_empty',
+              value: ''
+            }
           });
       }));
   });
