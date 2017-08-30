@@ -1,0 +1,20 @@
+{
+  "name": "LazaroCardenas",
+  "scripts": {
+  },
+  "env": {
+    "MONGODB_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
