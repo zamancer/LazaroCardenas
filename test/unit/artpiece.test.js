@@ -81,6 +81,44 @@ describe('ArtPiece model', () => {
         .then((res) => { expect(res).to.be.an('object'); });
   });
 
+  it('should retrieve detailFor a number of ArtPieces', () => {
+    const artPiece1 = new ArtPiece({
+      author: 'JF Kennedy Maestre',
+      title: 'The Greatest Painting',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120',
+      year: '2017',
+      description: 'Behold!',
+      source: 'https://secreturl.com/image.png',
+    });
+
+    const artPiece2 = new ArtPiece({
+      author: 'JF Kennedy Maestre',
+      title: 'The Greatest Painting',
+      technique: 'Hand',
+      materials: 'Diamond',
+      measurements: '120x120',
+      year: '2017',
+      description: 'Behold!',
+      source: 'https://secreturl.com/image.png',
+    });
+
+    let persistedArtPieces = [];
+
+    return Promise.resolve()
+        .then(() => ArtPiece.create(artPiece1))
+        .then(artPiece => persistedArtPieces.push(artPiece.id))
+        .then(() => ArtPiece.create(artPiece2))
+        .then(artPiece => persistedArtPieces.push(artPiece.id))
+        .then(() => {
+          ArtPiece.detailFor(persistedArtPieces, (err, details) => {
+            expect(details).to.be.an('array');
+            expect(details).to.have.lengthOf(2);
+          })
+        });
+  });
+
   it('should retrieve an ArtPiece detail', () => {
     const artPiece = new ArtPiece({
       id: 1,

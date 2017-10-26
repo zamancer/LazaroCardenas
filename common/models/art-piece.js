@@ -24,6 +24,29 @@ module.exports = function (ArtPiece) {
     callback(null, details);
   };
 
+  /**
+   * Retrieves the ArtPiece detail for a list of ids
+   * @param {array} artPiecesIds The list of ArtPiece ids
+   * @param {Function(Error, array)} callback
+   */
+  // eslint-disable-next-line
+  ArtPiece.detailFor = function(artPiecesIds, callback) {
+    return Promise.resolve()
+          .then(() => ArtPiece.find({ where: { id: { inq: artPiecesIds } } }))
+          .then((artPieces) => {
+            const detailPromises = artPieces.map((ap) => {
+              return new Promise((resolve, reject) => {
+                ap.getArtPieceDetail((err, detail) => resolve(detail))
+              })
+            });
+
+            return Promise.all(detailPromises)
+                  .then(details => details);
+          })
+          .then(details => callback(null, details))
+          .catch(err => callback(err, null));
+  };
+
   function buildMosaicFilterForCulturalHelper(culturalHelperId) {
     const Artist = ArtPiece.app.models.Artist;
 

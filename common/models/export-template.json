@@ -1,0 +1,33 @@
+{
+  "name": "ExportTemplate",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "string"
+    },
+    "logoPosition": {
+      "type": "string"
+    },
+    "background": {
+      "type": "string"
+    },
+    "backgroundPosition": {
+      "type": "string"
+    },
+    "lineColor": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

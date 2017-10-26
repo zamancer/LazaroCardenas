@@ -50,6 +50,63 @@ describe('Artist model', () => {
           .an('object');
       }));
 
+  it('should retrieve multiple detailsFor Artists', () => {
+    const artist1 = new Artist({
+      name: 'Javier',
+      lastName: 'Matallanas',
+      email: 'javier_art@mail.com',
+      phone: 'DETAILSFORPHONE',
+      photo: 'https://whateverpic.jpg'
+    });
+
+    const credentials1 = {
+      name: 'Javier',
+      lastName: 'Matallanas',
+      email: 'javier_art@mail.com',
+      password: 'p4ssw0rd',
+      ownerType: 'Artist',
+    };
+
+    const artist2 = new Artist({
+      name: 'Florencia',
+      lastName: 'Gallardo',
+      email: 'flor_art@mail.com',
+      phone: 'DETAILSFORPHONE',
+      photo: 'https://florme.jpg'
+    });
+
+    const credentials2 = {
+      name: 'Florencia',
+      lastName: 'Gallardo',
+      email: 'flor_art@mail.com',
+      password: 'p4ssw0rd',
+      ownerType: 'Artist',
+    };
+
+    let persistedArtistsIds = [];
+
+    return Promise.resolve()
+          .then(() => Artist.create(artist1))
+          .then((art) => {
+            persistedArtistsIds.push(art.id);
+            const assignedCredentials = Object.assign({}, credentials1, { ownerId: art.id });
+            Credential.create(assignedCredentials);
+          })
+          .then(() => Artist.create(artist2))
+          .then((art) => {
+            persistedArtistsIds.push(art.id);              
+            const assignedCredentials = Object.assign({}, credentials2, { ownerId: art.id });
+            Credential.create(assignedCredentials);
+          })
+          .then(() => {
+            Artist.detailFor(persistedArtistsIds, (err, details) => {
+              expect(details).to.be.an('array');
+              expect(details).to.have.lengthOf(2);
+            })
+          });
+
+  });
+
   it('should retrieve Artist detail', () => {
     const artist = new Artist({
       name: 'Nombre',

@@ -10,10 +10,10 @@ module.exports = function (Artist) {
   Artist.prototype.getArtistDetail = function (callback) {
     const currentArtist = this;
     const CulturalHelper = Artist.app.models.CulturalHelper;
-    
+
     return Promise.resolve()
           .then((details) => {
-            if(currentArtist.culturalHelperId) {
+            if (currentArtist.culturalHelperId) {
               return CulturalHelper.findOne({ where: { id: currentArtist.culturalHelperId } })
             }
 
@@ -31,12 +31,34 @@ module.exports = function (Artist) {
 
             const details = { id: currentArtist.id, detail, categories: currentArtist.categories };
 
-            if(culturalHelper) {
+            if (culturalHelper) {
               details.detail.culturalHelperName = culturalHelper.name;
             }
             return details;
           })
           .then(details => callback(null, details));
+  };
+
+  /**
+   * Retrieves the Artist detail for a list of ids
+   * @param {array} artistsIds The list of Artist ids
+   * @param {Function(Error, Array)} callback
+   */
+  // eslint-disable-next-line
+  Artist.detailFor = function(artistsIds, callback) {
+    return Promise.resolve()
+      .then(() => Artist.find({ where: { id: { inq: artistsIds } } }))
+      .then((artists) => {
+        const detailPromises = artists.map((a) => {
+          return new Promise((resolve, reject) => {
+            a.getArtistDetail((err, dt) => resolve(dt))
+          })
+        });
+
+        return Promise.all(detailPromises).then(details => details);
+      })
+      .then(details => callback(null, details))
+      .catch(err => callback(err, null));
   };
 
   /**

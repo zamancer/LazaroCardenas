@@ -121,6 +121,31 @@
           "verb": "delete"
         }
       ]
+    },
+    "detailFor": {
+      "accepts": [
+        {
+          "arg": "artPiecesIds",
+          "type": "array",
+          "required": true,
+          "description": "The list of ArtPiece ids"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "details",
+          "type": "array",
+          "root": false,
+          "description": "The artpieces details"
+        }
+      ],
+      "description": "Retrieves the ArtPiece detail for a list of ids",
+      "http": [
+        {
+          "path": "/detailFor",
+          "verb": "get"
+        }
+      ]
     }
   }
 }

@@ -30,6 +30,12 @@
         "object"
       ],
       "default": []
+    },
+    "profilePics": {
+      "type": [
+        "string"
+      ],
+      "default": []
     }
   },
   "validations": [],
@@ -74,6 +80,31 @@
       "http": [
         {
           "path": "/getArtistDetail",
+          "verb": "get"
+        }
+      ]
+    },
+    "detailFor": {
+      "accepts": [
+        {
+          "arg": "artistsIds",
+          "type": "array",
+          "required": true,
+          "description": "The list of Artist ids "
+        }
+      ],
+      "returns": [
+        {
+          "arg": "details",
+          "type": "array",
+          "root": false,
+          "description": "The artists details"
+        }
+      ],
+      "description": "Retrieves the Artist detail for a list of ids",
+      "http": [
+        {
+          "path": "/detailFor",
           "verb": "get"
         }
       ]
