@@ -158,6 +158,10 @@ describe('Artist model', () => {
         expect(details)
           .to
           .have
+          .property('profilePics');
+        expect(details)
+          .to
+          .have
           .property('id');
         expect(details.id)
           .to

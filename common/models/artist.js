@@ -29,7 +29,7 @@ module.exports = function (Artist) {
               })
               .reduce((acc, current) => Object.assign({}, acc, current), {});
 
-            const details = { id: currentArtist.id, detail, categories: currentArtist.categories };
+            const details = { id: currentArtist.id, detail, categories: currentArtist.categories, profilePics: currentArtist.profilePics };
 
             if (culturalHelper) {
               details.detail.culturalHelperName = culturalHelper.name;
