@@ -94,14 +94,14 @@ describe('ArtPiece model', () => {
     });
 
     const artPiece2 = new ArtPiece({
-      author: 'JF Kennedy Maestre',
-      title: 'The Greatest Painting',
+      author: 'Something',
+      title: 'Something',
       technique: 'Hand',
       materials: 'Diamond',
       measurements: '120x120',
       year: '2017',
       description: 'Behold!',
-      source: 'https://secreturl.com/image.png',
+      source: 'https://secreturl.com/image2.png',
     });
 
     let persistedArtPieces = [];
@@ -112,9 +112,9 @@ describe('ArtPiece model', () => {
         .then(() => ArtPiece.create(artPiece2))
         .then(artPiece => persistedArtPieces.push(artPiece.id))
         .then(() => {
-          ArtPiece.detailFor(persistedArtPieces, (err, details) => {
-            expect(details).to.be.an('array');
-            expect(details).to.have.lengthOf(2);
+          ArtPiece.detailFor(persistedArtPieces, (err, detailsFor) => {
+            expect(detailsFor).to.be.an('array');
+            expect(detailsFor).to.have.lengthOf(2);
           })
         });
   });
