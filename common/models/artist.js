@@ -48,15 +48,6 @@ module.exports = function (Artist) {
   Artist.detailFor = function(artistsIds, callback) {
     return Promise.resolve()
       .then(() => Artist.find({ where: { id: { inq: artistsIds } } }))
-      .then((artists) => {
-        const detailPromises = artists.map((a) => {
-          return new Promise((resolve, reject) => {
-            a.getArtistDetail((err, dt) => resolve(dt))
-          })
-        });
-
-        return Promise.all(detailPromises).then(details => details);
-      })
       .then(details => callback(null, details))
       .catch(err => callback(err, null));
   };
