@@ -111,9 +111,15 @@ describe('Artist model', () => {
     const artist = new Artist({
       name: 'Nombre',
       lastName: 'Apellido',
-      email: 'mail@mail.com',
-      phone: '3333333333',
+      email: 'mail1234567@mail.com',
       photo: 'https://url2.com',
+      nickname: 'BADARTIST',
+      age: '28',
+      nationality: 'MEXICAN',
+      profession: 'Engineer',
+      piece: 'Whatever',
+      education: 'Degree',
+      exhibitions: 'Individuals',
       categories: [
         {
           label: 'MyTag',
@@ -139,7 +145,7 @@ describe('Artist model', () => {
       })
       .then(() => Artist.findOne({
         where: {
-          phone: '3333333333',
+          email: 'mail1234567@mail.com',
         },
       }))
       .then(res => res.getArtistDetail((err, details) => {
@@ -180,7 +186,7 @@ describe('Artist model', () => {
             },
             email: {
               filter: 'not_empty',
-              value: 'mail@mail.com',
+              value: 'mail1234567@mail.com',
             },
             name: {
               filter: 'not_empty',
@@ -190,9 +196,33 @@ describe('Artist model', () => {
               filter: 'default',
               value: 'Apellido',
             },
-            phone: {
+            nickname: {
               filter: 'default',
-              value: '3333333333',
+              value: 'BADARTIST',
+            },
+            age: {
+              filter: 'default',
+              value: '28',
+            },
+            nationality: {
+              filter: 'default',
+              value: 'MEXICAN',
+            },
+            profession: {
+              filter: 'default',
+              value: 'Engineer',
+            },
+            piece: {
+              filter: 'default',
+              value: 'Whatever',
+            },
+            education: {
+              filter: 'default',
+              value: 'Degree',
+            },
+            exhibitions: {
+              filter: 'default',
+              value: 'Individuals',
             },
             culturalHelperId: {
               filter: 'not_empty',

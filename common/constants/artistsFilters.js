@@ -11,7 +11,25 @@ const ArtistFilters = {
   lastName: {
     filter: 'default',
   },
-  phone: {
+  nickname: {
+    filter: 'default',
+  },
+  age: {
+    filter: 'default',
+  },
+  nationality:{
+    filter: 'default',
+  },
+  profession: {
+    filter: 'default',
+  },
+  piece: {
+    filter: 'default',
+  },
+  education: {
+    filter: 'default',
+  },
+  exhibitions: {
     filter: 'default',
   },
   culturalHelperId: {

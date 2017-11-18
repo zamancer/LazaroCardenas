@@ -21,9 +21,26 @@
       "type": "string",
       "default": ""
     },
-    "phone": {
-      "type": "string",
-      "default": ""
+    "nickname": {
+      "type": "string"
+    },
+    "age": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "profession": {
+      "type": "string"
+    },
+    "piece": {
+      "type": "string"
+    },
+    "education": {
+      "type": "string"
+    },
+    "exhibitions": {
+      "type": "string"
     },
     "categories": {
       "type": [
