@@ -6,19 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "author": {
-      "type": "string",
-      "default": ""
-    },
     "title": {
       "type": "string",
       "default": ""
     },
-    "technique": {
-      "type": "string",
-      "default": ""
-    },
-    "materials": {
+    "author": {
       "type": "string",
       "default": ""
     },
@@ -26,23 +18,31 @@
       "type": "string",
       "default": ""
     },
+    "series": {
+      "type": "string",
+      "default": ""
+    },
+    "tiraje": {
+      "type": "string",
+      "default": ""
+    },
     "year": {
       "type": "string",
       "default": ""
     },
-    "description": {
+    "price": {
       "type": "string",
       "default": ""
     },
     "source": {
       "type": "string"
     },
-    "artistId": {
-      "type": "number"
-    },
     "images": {
       "type": "object",
       "default": {}
+    },
+    "artistId": {
+      "type": "number"
     },
     "categories": {
       "type": [

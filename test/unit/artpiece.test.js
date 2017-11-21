@@ -122,13 +122,14 @@ describe('ArtPiece model', () => {
   it('should retrieve an ArtPiece detail', () => {
     const artPiece = new ArtPiece({
       id: 1,
-      author: 'JF Kennedy Maestre',
       title: 'The Greatest Painting',
-      technique: 'Hand',
-      materials: 'Diamond',
+      author: 'JF Kennedy Maestre',
       measurements: '120x120',
+      technique: 'Hand',
+      series: 'Serie 1',
+      tiraje: 'Tiraje?',
       year: '2017',
-      description: 'Behold!',
+      price: '20,000.00MXN',
       source: 'https://secreturl.com/image.png',
       categories: [
         {
@@ -150,29 +151,37 @@ describe('ArtPiece model', () => {
       expect(details.id).to.be.above(0);
       expect(details.categories).to.have.lengthOf(2);
       expect(details.detail).to.deep.equal({
-        author: {
-          filter: 'not_empty',
-          value: artPiece.author,
-        },
         title: {
           filter: 'not_empty',
           value: artPiece.title,
         },
-        technique: {
-          filter: 'default',
-          value: artPiece.technique,
-        },
-        materials: {
-          filter: 'default',
-          value: artPiece.materials,
+        author: {
+          filter: 'not_empty',
+          value: artPiece.author,
         },
         measurements: {
           filter: 'default',
           value: artPiece.measurements,
         },
+        technique: {
+          filter: 'default',
+          value: artPiece.technique,
+        },
+        series: {
+          filter: 'default',
+          value: artPiece.series
+        },
+        tiraje: {
+          filter: 'default',
+          value: artPiece.tiraje
+        },
         year: {
           filter: 'default',
           value: artPiece.year,
+        },
+        price: {
+          filter: 'default',
+          value: artPiece.price
         },
         source: {
           filter: 'not_empty',
@@ -181,10 +190,6 @@ describe('ArtPiece model', () => {
         images: {
           filter: 'not_empty',
           value: {}
-        },
-        description: {
-          filter: 'default',
-          value: artPiece.description,
         },
         artistId: {
           filter: 'not_empty',

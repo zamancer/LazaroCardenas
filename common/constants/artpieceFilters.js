@@ -1,20 +1,26 @@
 const ArtPieceFilters = {
-  author: {
-    filter: 'not_empty',
-  },
   title: {
     filter: 'not_empty',
   },
-  technique: {
-    filter: 'default',
-  },
-  materials: {
-    filter: 'default',
+  author: {
+    filter: 'not_empty',
   },
   measurements: {
     filter: 'default',
   },
+  technique: {
+    filter: 'default',
+  },
+  series: {
+    filter: 'default',
+  },
+  tiraje: {
+    filter: 'default',
+  },
   year: {
+    filter: 'default',
+  },
+  price: {
     filter: 'default',
   },
   source: {
@@ -22,9 +28,6 @@ const ArtPieceFilters = {
   },
   images: {
     filter: 'not_empty',
-  },
-  description: {
-    filter: 'default',
   },
   artistId: {
     filter: 'not_empty'
