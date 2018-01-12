@@ -18,8 +18,8 @@
       "default": ""
     },
     "photo": {
-      "type": "string",
-      "default": ""
+      "type": "object",
+      "default": {}
     },
     "nickname": {
       "type": "string"
@@ -43,15 +43,11 @@
       "type": "string"
     },
     "categories": {
-      "type": [
-        "object"
-      ],
+      "type": ["object"],
       "default": []
     },
     "profilePics": {
-      "type": [
-        "string"
-      ],
+      "type": ["string"],
       "default": []
     }
   },
