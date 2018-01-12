@@ -1,8 +1,5 @@
 {
-  "extends": "airbnb/base",
-  "rules": {
-    "comma-dangle": ["error", "only-multiline"]
-  },
+  "extends": ["plugin:prettier/recommended"],
   "env": {
     "mocha": true
   }

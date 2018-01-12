@@ -7,9 +7,7 @@
   },
   "now": {
     "name": "lazarocardenas",
-    "alias": [
-      "lazarocardenas"
-    ],
+    "alias": ["lazarocardenas"],
     "env": {
       "MONGODB_URL": "@mongodb-url",
       "NODE_ENV": "production"
@@ -21,11 +19,14 @@
     "start": "node .",
     "test": "cross-env NODE_ENV=test mocha test/**/*.test.js",
     "watch": "npm run test -- --watch",
-    "precommit": "yarn test",
+    "precommit": "lint-staged && yarn test",
     "now:deploy": "now",
     "now:alias": "now alias",
     "now": "npm run now:deploy && npm run now:alias",
     "cov": "nyc --check-coverage --functions 80 --lines 85 yarn test"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
   "dependencies": {
     "compression": "^1.0.3",
@@ -44,21 +45,23 @@
     "cross-env": "^5.0.1",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-loopback": "^8.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-prettier": "^2.4.0",
     "husky": "^0.14.3",
     "istanbul": "^0.4.5",
+    "lint-staged": "^6.0.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "nsp": "^2.1.0",
     "nyc": "^11.0.3",
+    "prettier": "^1.9.2",
     "supertest": "^3.0.0"
   },
   "nyc": {
-    "exclude": [
-      "test",
-      "server"
-    ]
+    "exclude": ["test", "server"]
   },
   "repository": {
     "type": "",
