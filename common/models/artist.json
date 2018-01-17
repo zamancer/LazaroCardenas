@@ -19,7 +19,10 @@
     },
     "photo": {
       "type": "object",
-      "default": {}
+      "default": {
+        "thumbnail": "",
+        "standard": ""
+      }
     },
     "nickname": {
       "type": "string"
